@@ -5,6 +5,6 @@
 5    <uses-sdk android:minSdkVersion="24" />
 6
 7    <application />
-7-->/Users/susadi/EAD/EV-Charging-Mobile/auth/src/main/AndroidManifest.xml:3:5-20
+7-->/Users/tharushikodikaraarachchi/Documents/GitHub/EV-Charging-Mobile/auth/src/main/AndroidManifest.xml:3:5-20
 8
 9</manifest>
