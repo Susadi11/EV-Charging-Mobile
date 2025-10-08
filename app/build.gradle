@@ -89,3 +89,7 @@ tasks.register("assembleDebugAndroidTest") {
         "assembleUserDebugAndroidTest"
     )
 }
+
+tasks.named("preBuild") {
+    dependsOn(rootProject.tasks.named("startApi"))
+}
