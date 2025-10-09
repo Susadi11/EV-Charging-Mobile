@@ -34,3 +34,5 @@ local.properties
 
 ## Additional captures in modules
 **/captures/
+config.bat
+node_modules
