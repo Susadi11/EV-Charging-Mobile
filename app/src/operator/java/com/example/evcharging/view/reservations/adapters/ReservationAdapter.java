@@ -52,7 +52,8 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         holder.textReservationId.setText("#" + reservation.getBookingId().substring(0, 8));
         holder.textStatus.setText(reservation.getStatus());
         holder.textCustomerName.setText(reservation.getUserId()); // Replace with actual customer name if available
-        holder.textStationName.setText(reservation.getStationId()); // Replace with actual station name if available
+        // holder.textStationName.setText(reservation.getStationId()); // Removed station name display
+
 
         try {
             Date reservationDate = isoFormatter.parse(reservation.getReservationDateTime());
@@ -95,7 +96,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         TextView textReservationId;
         TextView textStatus;
         TextView textCustomerName;
-        TextView textStationName;
+        // TextView textStationName; // Removed
         TextView textDate;
         TextView textTime;
         View btnApprove;
@@ -110,7 +111,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
             textReservationId = itemView.findViewById(R.id.textReservationId);
             textStatus = itemView.findViewById(R.id.textStatus);
             textCustomerName = itemView.findViewById(R.id.textCustomerName);
-            textStationName = itemView.findViewById(R.id.textStationName);
+            // textStationName = itemView.findViewById(R.id.textStationName); // Removed
             textDate = itemView.findViewById(R.id.textDate);
             textTime = itemView.findViewById(R.id.textTime);
             btnApprove = itemView.findViewById(R.id.btnApprove);
