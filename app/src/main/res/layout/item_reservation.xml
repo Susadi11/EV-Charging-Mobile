@@ -99,7 +99,7 @@
                 android:id="@+id/textVehicleNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ABC-1234"
+                android:text="CBO-7865"
                 android:textColor="@color/apple_gray_medium"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -107,14 +107,14 @@
         </LinearLayout>
 
         <!-- Station and Slot Info -->
-        <TextView
-            android:id="@+id/textStationName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Downtown Charging Station"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:paddingTop="8dp" />
+<!--        <TextView-->
+<!--            android:id="@+id/textStationName"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Downtown Charging Station"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="14sp"-->
+<!--            android:paddingTop="8dp" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="2:00 PM - 4:00 PM"
-                    android:textColor="@color/apple_gray_medium"
+                    android:textColor="@color/apple_secondary"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -180,21 +180,21 @@
             android:gravity="center_vertical"
             android:paddingTop="8dp">
 
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/ic_ev_plug"
-                android:tint="@color/apple_secondary" />
+<!--            <ImageView-->
+<!--                android:layout_width="16dp"-->
+<!--                android:layout_height="16dp"-->
+<!--                android:src="@drawable/ic_ev_plug"-->
+<!--                android:tint="@color/apple_secondary" />-->
 
-            <TextView
-                android:id="@+id/textSlotInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:text="Slot A2 - DC Fast Charger"
-                android:textColor="@color/apple_secondary"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:id="@+id/textSlotInfo"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="6dp"-->
+<!--                android:text="Slot A2 - DC Fast Charger"-->
+<!--                android:textColor="@color/apple_secondary"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold" />-->
 
             <View
                 android:layout_width="0dp"

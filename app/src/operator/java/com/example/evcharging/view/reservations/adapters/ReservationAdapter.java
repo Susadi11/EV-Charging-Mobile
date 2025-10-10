@@ -1,33 +1,124 @@
 package com.example.evcharging.view.reservations.adapters;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.evcharging.R;
+import com.example.evcharging.model.Reservation;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.ViewHolder> {
+
+    private static final String TAG = "ReservationAdapter";
+    private SimpleDateFormat isoFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+
+    private List<Reservation> reservations;
+
+    public ReservationAdapter(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+        Log.d(TAG, "setReservations: received " + reservations.size() + " reservations");
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // TODO: Implement onCreateViewHolder method
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_reservation, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // TODO: Implement onBindViewHolder method
+        Reservation reservation = reservations.get(position);
+        Log.d(TAG, "onBindViewHolder: binding reservation at position " + position + ", Booking ID: " + reservation.getBookingId());
+
+        holder.textReservationId.setText("#" + reservation.getBookingId().substring(0, 8));
+        holder.textStatus.setText(reservation.getStatus());
+        holder.textCustomerName.setText(reservation.getUserId()); // Replace with actual customer name if available
+        // holder.textStationName.setText(reservation.getStationId()); // Removed station name display
+
+
+        try {
+            Date reservationDate = isoFormatter.parse(reservation.getReservationDateTime());
+            holder.textDate.setText(dateFormatter.format(reservationDate));
+
+            Date startTime = isoFormatter.parse(reservation.getStartTime());
+            Date endTime = isoFormatter.parse(reservation.getEndTime());
+            holder.textTime.setText(timeFormatter.format(startTime) + " - " + timeFormatter.format(endTime));
+        } catch (ParseException e) {
+            Log.e(TAG, "Error parsing date/time: " + e.getMessage());
+            holder.textDate.setText("Invalid Date");
+            holder.textTime.setText("Invalid Time");
+        }
+
+        // Hide all action buttons by default
+        holder.btnApprove.setVisibility(View.GONE);
+        holder.btnReject.setVisibility(View.GONE);
+        holder.btnFinish.setVisibility(View.GONE);
+        holder.btnViewDetails.setVisibility(View.GONE);
+        holder.btnEndOperation.setVisibility(View.GONE);
+
+        // Show buttons based on status
+        if ("Approved".equals(reservation.getStatus())) {
+            // No buttons for approved status in pending tab
+        } else if ("Active".equals(reservation.getStatus())) {
+            holder.btnFinish.setVisibility(View.VISIBLE);
+            holder.btnEndOperation.setVisibility(View.VISIBLE);
+        } else if ("Completed".equals(reservation.getStatus())) {
+            holder.btnViewDetails.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public int getItemCount() {
-        // TODO: Implement getItemCount method
-        return 0;
+        return reservations.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(@NonNull android.view.View itemView) {
+
+        TextView textReservationId;
+        TextView textStatus;
+        TextView textCustomerName;
+        // TextView textStationName; // Removed
+        TextView textDate;
+        TextView textTime;
+        View btnApprove;
+        View btnReject;
+        View btnFinish;
+        View btnViewDetails;
+        View btnEndOperation;
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            // TODO: Initialize views
+
+            textReservationId = itemView.findViewById(R.id.textReservationId);
+            textStatus = itemView.findViewById(R.id.textStatus);
+            textCustomerName = itemView.findViewById(R.id.textCustomerName);
+            // textStationName = itemView.findViewById(R.id.textStationName); // Removed
+            textDate = itemView.findViewById(R.id.textDate);
+            textTime = itemView.findViewById(R.id.textTime);
+            btnApprove = itemView.findViewById(R.id.btnApprove);
+            btnReject = itemView.findViewById(R.id.btnReject);
+            btnFinish = itemView.findViewById(R.id.btnFinish);
+            btnViewDetails = itemView.findViewById(R.id.btnViewDetails);
+            btnEndOperation = itemView.findViewById(R.id.btnEndOperation);
         }
     }
 }
