@@ -12,11 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.evcharging.R;
 import com.example.evcharging.model.Reservation;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.ViewHolder> {
 
     private static final String TAG = "ReservationAdapter";
+    private SimpleDateFormat isoFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
     private List<Reservation> reservations;
 
@@ -46,8 +53,19 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         holder.textStatus.setText(reservation.getStatus());
         holder.textCustomerName.setText(reservation.getUserId()); // Replace with actual customer name if available
         holder.textStationName.setText(reservation.getStationId()); // Replace with actual station name if available
-        holder.textDate.setText(reservation.getReservationDateTime()); // Format this date
-        holder.textTime.setText(reservation.getStartTime() + " - " + reservation.getEndTime()); // Format this time
+
+        try {
+            Date reservationDate = isoFormatter.parse(reservation.getReservationDateTime());
+            holder.textDate.setText(dateFormatter.format(reservationDate));
+
+            Date startTime = isoFormatter.parse(reservation.getStartTime());
+            Date endTime = isoFormatter.parse(reservation.getEndTime());
+            holder.textTime.setText(timeFormatter.format(startTime) + " - " + timeFormatter.format(endTime));
+        } catch (ParseException e) {
+            Log.e(TAG, "Error parsing date/time: " + e.getMessage());
+            holder.textDate.setText("Invalid Date");
+            holder.textTime.setText("Invalid Time");
+        }
 
         // Hide all action buttons by default
         holder.btnApprove.setVisibility(View.GONE);
