@@ -2,6 +2,7 @@ package com.example.evcharging.http;
 
 import com.example.evcharging.model.LoginSuccessDTO;
 import com.example.evcharging.http.ApiResponse;
+import com.example.evcharging.model.Reservation;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface OperatorApi {
 
     // Operator-specific APIs
     @GET("/api/operators/sessions/assigned")
-    Call<ApiResponse<List<Object>>> getAssignedSessions(@Query("status") String status);
+    Call<ApiResponse<List<Reservation>>> getAssignedSessions(@Query("status") String status);
 
     @PATCH("/api/operators/session/{bookingId}/complete")
     Call<ApiResponse<Object>> completeSession(@Path("bookingId") String bookingId, @Body RequestBody finalizeData);
